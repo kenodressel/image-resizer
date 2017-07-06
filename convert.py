@@ -52,9 +52,10 @@ def get_all_convertables(o_folder, new_folder):
 def transform_files(o_folder, new_folder, file_list):
 
 	for f in file_list:
-		bashCommand = "convert " + o_folder + '/' + f + " -resize 2048x -quality 50% " + new_folder + '/' + transform_filename(f)
-		process = subprocess.call(bashCommand.split(), stdout=subprocess.PIPE)
-		#output, error = process.communicate()
+		o_folderpath = o_folder.replace(" ", "\ ");
+		new_folderpath = new_folder.replace(" ", "\ ");
+		bashCommand = ["convert",  o_folderpath + '/' + f, "-resize","2048x","-quality","50%", new_folderpath + '/' + transform_filename(f)]
+		process = subprocess.call(bashCommand, stdout=subprocess.PIPE)
 
 if __name__ == '__main__':
 	signal.signal(signal.SIGINT, signal_handler)
